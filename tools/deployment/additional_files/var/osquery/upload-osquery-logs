@@ -1,0 +1,19 @@
+#!/bin/bash
+
+osqlog="/var/log/osquery/osqueryd.snapshots.log"
+
+# from environment
+bucket="${s3_bucket}"
+access_key_id="${aws_key}"
+secret_access_key="${aws_secret}"
+
+if [[ -r "${osqlog}" ]]; then
+  tmpfile="$(mktemp)"
+  mv "${osqlog}" "${tmpfile}"
+  gzip "${tmpfile}"
+  objectname="osquery_$(hostname -s)_$(date +"%Y-%m-%d_%H:%M:%S")_$(uuidgen).gz"
+  echo "$(date): Attempting to upload logs as ${objectname}"
+  /var/osquery/s3-upload-v4 "${access_key_id}" "${secret_access_key}" "${bucket}" "${tmpfile}.gz" "uploads/${objectname}" && rm "${tmpfile}.gz"
+else
+  echo "$(date): Log file ${osqlog} currently does not exist. Skipped upload attempt."
+fi

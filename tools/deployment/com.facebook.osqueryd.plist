@@ -13,6 +13,10 @@
     <string>/usr/local/bin/osqueryd</string>
     <string>--flagfile=/private/var/osquery/osquery.flags</string>
   </array>
+  <key>StandardErrorPath</key>
+  <string>/var/log/osquery/com.facebook.osqueryd.err.txt</string>
+  <key>StandardOutPath</key>
+  <string>/var/log/osquery/com.facebook.osqueryd.out.txt</string>
   <key>RunAtLoad</key>
   <true/>
   <key>ThrottleInterval</key>

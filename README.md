@@ -91,6 +91,31 @@ We *officially* support a subset of OS versions for **building** because it is r
 - Apple macOS 10.13
 - Windows 10 and Server 2016
 
+## Building CenterDevice macOS installers
+
+* Build from source as described in the previous section.
+* Obtain AWS credentials and desired bucket name
+* Optionally obtain Apple Developer Identity and install in keychain
+* Set a git tag, preferably using the same tag as the upstream version is, plus `-CD`, so e. g. `3.3.1-CD`. The package filename will be determined by git, so a tag makes for a nicer filename.
+* Execute these commands
+```
+$ cd tools/deployment
+./make_osx_package.sh -c osquery.centerdevice.conf \
+   --autostart \
+   --clean \ 
+   --include-dir additional_files \ 
+   --aws-key AWS_KEY_ID \
+   --aws-secret AWS_SECRET
+   --aws-bucket AWS_BUCKET[@REGION]
+   --name NAME
+   [--sign]
+```
+
+The bucket region is optional.
+The `NAME` parameter is used as a suffix for the generated packe filename. It can be used to differentiate builds for test or production environments.
+If `--sign` is provided, the binaries and the installer package get signed, so that Gatekeeper will not complain upon installation. 
+
+
 ## File Integrity Monitoring (FIM)
 
 osquery provides several [FIM features](http://osquery.readthedocs.org/en/stable/deployment/file-integrity-monitoring/) too! Just as OS concepts are represented in tabular form, the daemon can track OS events and later expose them in a table. Tables like [`file_events`](https://osquery.io/schema/current#file_events) or [`yara_events`](https://osquery.io/schema/current#yara_events) can be selected to retrieve buffered events.

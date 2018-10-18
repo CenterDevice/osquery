@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.centerdevice.osqueryupload</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>aws_key</key>
+    <string>AWS_KEY_PLACEHOLDER</string>
+    <key>aws_secret</key>
+    <string>AWS_SECRET_PLACEHOLDER</string>
+    <key>s3_bucket</key>
+    <string>AWS_BUCKET_PLACEHOLDER</string>
+  </dict>
+  <key>StandardErrorPath</key>
+  <string>/var/log/osquery/com.centerdevice.osqueryupload.err.txt</string>
+  <key>StandardOutPath</key>
+  <string>/var/log/osquery/com.centerdevice.osqueryupload.out.txt</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/var/osquery/upload-osquery-logs</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>300</integer>
+  <key>Umask</key>
+  <integer>23</integer>
+</dict>
+</plist>
